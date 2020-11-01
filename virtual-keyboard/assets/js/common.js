@@ -7,11 +7,9 @@ let display = document.querySelector('.display'),
     casheLang,
     keycodes = [192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8, 9, 81, 87, 69,
     82, 84, 89, 85, 73, 79, 80, 219, 221, 20, 65, 83, 68, 70, 71, 72, 74, 75, 76, 186, 222,
-    220, 13, 16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 38, 555, 777, 32, 999, 37, 40, 39]
+    220, 13, 16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 38, 555, 777, 32, 999, 37, 40, 39],
+    speech = false;
 
-display.addEventListener('click', function(){
-  document.querySelector('.keyboard').classList.remove("inactive")
-})
 
 const VirtialKbd = {
   elements: {
@@ -123,8 +121,7 @@ const VirtialKbd = {
           break;
 
           case "tab":
-            keyElement.classList.add("button_wide")
-            keyElement.innerHTML = "Tab";
+            keyElement.classList.add("button_wide", "tab")
             keyElement.addEventListener("click", () => {
             curPos = display.selectionStart;
             if (curPos === display.value.length) {
@@ -139,8 +136,7 @@ const VirtialKbd = {
           break;
 
         case "enter":
-          keyElement.classList.add("button_wide");
-          keyElement.innerHTML = "ENTER";
+          keyElement.classList.add("button_wide", "enter");
           keyElement.addEventListener("click", () => {
             curPos = display.selectionStart;
             if (curPos === display.value.length) {
@@ -217,7 +213,28 @@ const VirtialKbd = {
         case "speech":
           keyElement.innerHTML = "SPEECH";
           keyElement.classList.add("button_wide", "button_speech");
+                keyElement.addEventListener('click', () => {
+                  if (!speech) {
+                    speech = !speech
+                    recognition.interimResults = true;
+                    if (language === 'eng') {
+                      recognition.lang = 'en-US'
+                      console.log(recognition.lang)
+                    } else if (language === 'ru') {
+                      recognition.lang = 'ru'
+                      console.log(recognition.lang)
+                    }
+                    recognition.interimResults = true
+                    recognition.start();
+                    recognition.addEventListener('end', recognition.start)
+                    recognition.addEventListener('result', tryRec);
+
+                  } else {
+                    stopVoice()
+                  }
+                })
           break;
+
 
         case "left":
           keyElement.innerHTML = "◄";
@@ -281,7 +298,6 @@ const VirtialKbd = {
 
         case "lang":
           keyElement.classList.add("button", "button_lang", "button_wide");
-          keyElement.innerHTML = "LANG";
           keyElement.addEventListener("click", () => {
               this.elements.btnWrapper.innerHTML = "";
               if (language === "eng") {
@@ -289,12 +305,14 @@ const VirtialKbd = {
                 this.elements.buttons = this.elements.btnWrapper.querySelectorAll(".button");
 
                 language = "ru";
+                document.querySelector(".button_lang").style.background = "rgba(105,105,105, 1) url('assets/images/ru2.png') no-repeat 50%/contain"
               } else {
                 this.elements.btnWrapper.appendChild(this.createKeys("eng"));
                  this.elements.buttons = this.elements.btnWrapper.querySelectorAll(".button");
                 language = "eng";
+                document.querySelector(".button_lang").style.background = "rgba(105,105,105, 1) url('assets/images/en.png') no-repeat 50%/contain"
               }
-              //buttons = Array.from(this.elements.buttons)
+              buttons = Array.from(this.elements.buttons)
           });
 
           break;
@@ -340,6 +358,9 @@ window.addEventListener("DOMContentLoaded", function () {
   VirtialKbd.init("eng");
 });
 
+display.addEventListener('click', function(){
+  document.querySelector('.keyboard').classList.remove("inactive")
+})
 
 function setSelectionRange(input, selectionStart, selectionEnd) {
   if (input.setSelectionRange) {
@@ -367,3 +388,41 @@ document.addEventListener('keydown', function(event) {
 document.addEventListener('keyup', function(event) {
   VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.cssText = "transform: translate(0px, 0px);"
 });
+
+
+
+// speech recognition ----------------------------------------------
+
+ window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+
+  const stopVoice = () => {
+    speech = !speech;
+    setCaretToPos(display, curPos + 1)
+    // display.focus()
+    recognition.abort()
+    recognition.removeEventListener('end', recognition.start)
+    recognition.removeEventListener('result', tryRec)
+  }
+
+  const tryRec = (e) => {
+    let transcript
+    console.log("transcript")
+    transcript = Array.from(e.results)
+      .map(result => result[0])
+      .map(result => result.transcript)
+      .join('');
+    if (e.results[0].isFinal) {
+      display.value += ' ' + transcript + ' '
+      if (curPos === 0) {
+        setCaretToPos(display, 0)
+      }
+      setCaretToPos(display, 0)
+    }
+  }
+
+
+
+  
+
+

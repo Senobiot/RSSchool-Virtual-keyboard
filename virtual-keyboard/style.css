@@ -110,7 +110,7 @@ h1, h2, h3, h4, h5, h6 {
     width: 70px;
     margin: 3px;
     border-radius: 4px;
-    background: dimgray;
+    background-color: dimgray;
     color: #000;
     cursor: pointer;
     display: -webkit-inline-box;
@@ -132,7 +132,7 @@ h1, h2, h3, h4, h5, h6 {
     -o-transition: 0.3s;
     transition: 0.3s;
     font-family: Arial, sans-serif;
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
@@ -143,6 +143,11 @@ h1, h2, h3, h4, h5, h6 {
               transform: translate(2px, 2px);
       background: #fff;
       color: #000; }
+    .keyboard .button.enter {
+      background: dimgray url("assets/images/enter.png") no-repeat 50%/contain; }
+    .keyboard .button.tab {
+      width: 120px;
+      background: dimgray url("assets/images/tab.png") no-repeat 50%/contain; }
     .keyboard .button.shift {
       -webkit-transition: all 0.3s;
       -o-transition: all 0.3s;
@@ -153,6 +158,8 @@ h1, h2, h3, h4, h5, h6 {
         -o-transition: all 0.3s;
         transition: all 0.3s;
         background-color: #fff; }
+    .keyboard .button_lang {
+      background: dimgray url("assets/images/en.png") no-repeat 50%/contain; }
     .keyboard .button_wide {
       width: 160px; }
     .keyboard .button_widest {
