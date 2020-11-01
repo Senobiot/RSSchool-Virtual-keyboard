@@ -172,11 +172,10 @@ const VirtialKbd = {
 
         case "shift":
         if (this.properties.shift) {
-          keyElement.classList.add("button_wide", "button_switch")
+          keyElement.classList.add("button_wide", "shift", "button_switch")
         }
-          else {keyElement.classList.add("button_wide")
+          else {keyElement.classList.add("button_wide", "shift")
         }
-          keyElement.innerHTML = "shift";
           keyElement.addEventListener("click", () => {
               if (!this.properties.shift) {
                 this.properties.shift = !this.properties.shift;
@@ -295,7 +294,7 @@ const VirtialKbd = {
                  this.elements.buttons = this.elements.btnWrapper.querySelectorAll(".button");
                 language = "eng";
               }
-              buttons = Array.from(this.elements.buttons)
+              //buttons = Array.from(this.elements.buttons)
           });
 
           break;
@@ -362,9 +361,9 @@ function setCaretToPos (input, pos) {
 
 
 document.addEventListener('keydown', function(event) {
-  console.log(event.keyCode)
-VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.color = "red"
+  VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.cssText = "transform: translate(2px, 2px); background-color: white;"
+});
 
-
-
+document.addEventListener('keyup', function(event) {
+  VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.cssText = "transform: translate(0px, 0px);"
 });

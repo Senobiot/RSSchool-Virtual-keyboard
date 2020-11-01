@@ -68,10 +68,13 @@ h1, h2, h3, h4, h5, h6 {
   margin: 30px auto;
   padding: 10px;
   line-height: 1;
-  font-size: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 36px;
+  font-weight: 500;
   height: -webkit-calc(100vh - 380px);
   height: calc(100vh - 380px);
-  min-height: 300px; }
+  min-height: 300px;
+  font-size: 24px; }
 
 .keyboard {
   position: fixed;
@@ -107,8 +110,8 @@ h1, h2, h3, h4, h5, h6 {
     width: 70px;
     margin: 3px;
     border-radius: 4px;
-    background: black;
-    color: #ffffff;
+    background: dimgray;
+    color: #000;
     cursor: pointer;
     display: -webkit-inline-box;
     display: -webkit-inline-flex;
@@ -128,17 +131,32 @@ h1, h2, h3, h4, h5, h6 {
     -webkit-transition: 0.3s;
     -o-transition: 0.3s;
     transition: 0.3s;
-    font-family: Arial;
-    font-size: 18px; }
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s; }
     .keyboard .button:active {
+      -webkit-transform: translate(2px, 2px);
+          -ms-transform: translate(2px, 2px);
+              transform: translate(2px, 2px);
       background: #fff;
       color: #000; }
+    .keyboard .button.shift {
+      -webkit-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      background: dimgray url("assets/images/shift.png") no-repeat 50%/contain; }
+      .keyboard .button.shift.button_switch {
+        -webkit-transition: all 0.3s;
+        -o-transition: all 0.3s;
+        transition: all 0.3s;
+        background-color: #fff; }
     .keyboard .button_wide {
       width: 160px; }
     .keyboard .button_widest {
       width: 425px; }
-    .keyboard .button_switch {
-      background-color: blue; }
     .keyboard .button_active::after {
       background: #08ff00; }
     .keyboard .button_accept {
