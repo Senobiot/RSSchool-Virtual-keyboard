@@ -2,7 +2,9 @@ let display = document.querySelector('.display'),
     curPos = display.selectionStart,
     buttons,
     language = "eng",
-    langKeys;
+    langKeys,
+    casheLayout = [],
+    casheLang;
 
 display.addEventListener('click', function(){
   document.querySelector('.keyboard').classList.remove("inactive")
@@ -16,7 +18,8 @@ const VirtialKbd = {
   },
 
   properties: {
-    capsLock: false
+    capsLock: false,
+    shift: false
   },
 
   init(lang) {
@@ -39,26 +42,44 @@ const VirtialKbd = {
     let layouts;
     const fragment = document.createDocumentFragment();
     const buttonsEng = [
-      "~", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
-      "Tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]",
+      "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
+      "tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]",
       "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "\\", "enter",
-      "shift_r", "z", "x", "c", "v", "b", "n", "m", ",", ".", "?", "shift_l", 
-      "ctrl_r", "lang", "alt_l", "space", "alt_l", "win",  "done", "ctrl_l",  
+      "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "up",
+      "speech", "lang", "space", "done", "left", "down", "right",
     ];
 
     const buttonsRu = [
       "ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
-      "Tab", "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ",
+      "tab", "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ",
       "caps", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "\\", "enter",
-      "shift_r", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", "?", "shift_l", 
-      "ctrl_r", "lang", "alt_l", "space", "alt_l", "win",  "done", "ctrl_l",  
+      "shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".", "up", 
+      "speech", "lang", "space", "done", "left", "down", "right", 
+    ];
+
+      const shiftEng = [
+      "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "backspace",
+      "tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "{", "}",
+      "caps", "A", "S", "D", "F", "G", "H", "J", "K", "L", ":", "\"", "|", "enter",
+      "shift", "Z", "X", "C", "V", "B", "N", "M", "<", ">", "?", "up", 
+      "speech", "lang", "space", "done", "left", "down", "right", 
+    ];
+      const shiftRu = [
+      "Ё", "!", "\"", "№", ";", "%", ":", "?", "*", "(", ")", "_", "+", "backspace",
+      "tab", "Й", "Ц", "У", "К", "Е", "Н", "Г", "Ш", "Щ", "З", "Х", "Ъ",
+      "caps", "Ф", "Ы", "В", "Ф", "П", "Р", "О", "Л", "Д", "Ж", "Э", "/", "enter",
+      "shift", "Я", "Ч", "С", "М", "И", "Т", "Ь", "Б", "Ю", ",", "up",  
+      "speech", "lang", "space", "done", "left", "down", "right", 
     ];
 
     if (lang === "eng") {layouts = buttonsEng}
-      else {layouts = buttonsRu}
+      else if (lang === "ru") {layouts = buttonsRu}
+      else if (lang === "shiftEng") {layouts = shiftEng}
+      else if (lang === "shiftRu") {layouts = shiftRu}
+
     layouts.forEach(key => {
       const keyElement = document.createElement("button");
-      const insertLineBreak = ["backspace", "]", "enter", "?", "ъ"].indexOf(key) !== -1;
+      const insertLineBreak = ["backspace", "]", "enter", "ъ", "up", "Ъ", "}"].indexOf(key) !== -1;
 
       keyElement.setAttribute("type", "button");
       keyElement.classList.add("button");
@@ -93,14 +114,30 @@ const VirtialKbd = {
           keyElement.addEventListener("click", () => {
             this.toggleCapsLock()
             keyElement.classList.toggle("button_switch", this.properties.capsLock);
+            display.focus()
+          });
+
+          break;
+
+          case "tab":
+            keyElement.classList.add("button_wide")
+            keyElement.innerHTML = "Tab";
+            keyElement.addEventListener("click", () => {
+            curPos = display.selectionStart;
+            if (curPos === display.value.length) {
+              display.value = display.value + "\t";
+            } else { 
+              let cache = display.value.slice(curPos)
+                display.value = display.value.slice(0, curPos) + "\t" + cache;}
+                  setCaretToPos(display, curPos + 1)
+            display.focus()
           });
 
           break;
 
         case "enter":
           keyElement.classList.add("button_wide");
-          keyElement.innerHTML = "enter";
-
+          keyElement.innerHTML = "ENTER";
           keyElement.addEventListener("click", () => {
             curPos = display.selectionStart;
             if (curPos === display.value.length) {
@@ -116,7 +153,7 @@ const VirtialKbd = {
 
         case "space":
           keyElement.classList.add("button_widest");
-          keyElement.innerHTML = "spacebar";
+          keyElement.innerHTML = "SPACEBAR";
           keyElement.addEventListener("click", () => {
             curPos = display.selectionStart;
             if (curPos === display.value.length) {
@@ -130,23 +167,44 @@ const VirtialKbd = {
 
           break;
 
-        case "ctrl_r":
+        case "shift":
+        if (this.properties.shift) {
+          keyElement.classList.add("button_wide", "button_switch")
+        }
+          else {keyElement.classList.add("button_wide")
+        }
+          keyElement.innerHTML = "shift";
           keyElement.addEventListener("click", () => {
-            if (language === "eng") {
-              language = "ru"
-              Keyboard._createKeys("ru")
-            } else {
-              language = "eng";
-              Keyboard._createKeys("eng")
-            }
-           ;
+              if (!this.properties.shift) {
+                this.properties.shift = !this.properties.shift;
+                this.elements.btnWrapper.innerHTML = "";
+                if (language === "eng") {
+                    this.elements.btnWrapper.appendChild(this.createKeys("shiftEng"));
+                    this.elements.buttons = this.elements.btnWrapper.querySelectorAll(".button");
+                  } else {
+                    this.elements.btnWrapper.appendChild(this.createKeys("shiftRu"));
+                    this.elements.buttons = this.elements.btnWrapper.querySelectorAll(".button");
+                  }
+                } else {
+                  this.properties.shift = !this.properties.shift;
+                  if (language === "eng") {
+                    this.elements.btnWrapper.innerHTML = "";
+                    this.elements.btnWrapper.appendChild(this.createKeys("eng"));
+                    this.elements.buttons = this.elements.btnWrapper.querySelectorAll(".button");
+                  } else {
+                     this.elements.btnWrapper.innerHTML = "";
+                    this.elements.btnWrapper.appendChild(this.createKeys("ru"));
+                    this.elements.buttons = this.elements.btnWrapper.querySelectorAll(".button");
+                  }
+                }
+                display.focus()
           });
 
           break;
 
         case "done":
           keyElement.classList.add("button_wide", "button_accept");
-          keyElement.innerHTML = "done";
+          keyElement.innerHTML = "DONE";
           keyElement.addEventListener("click", () => {
             this.elements.keyboard.classList.add("inactive");
             display.blur()
@@ -154,9 +212,74 @@ const VirtialKbd = {
 
           break;
 
+        case "speech":
+          keyElement.innerHTML = "SPEECH";
+          keyElement.classList.add("button_wide", "button_speech");
+          break;
+
+        case "left":
+          keyElement.innerHTML = "◄";
+          keyElement.addEventListener("click", () => {
+            curPos = display.selectionStart;
+            if (curPos !== 0) {
+            setCaretToPos(display, curPos - 1)
+            display.focus()
+            } else {display.focus()}
+        });
+          break;
+
+        case "right":
+          keyElement.innerHTML = "►";
+          keyElement.addEventListener("click", () => {
+            curPos = display.selectionStart;
+            if (curPos !== display.value.length) {
+            setCaretToPos(display, curPos + 1)
+            display.focus()
+            } else {display.focus()}
+        });
+          break;
+
+        case "up":
+          keyElement.innerHTML = "▲";
+          keyElement.addEventListener("click", () => {
+            curPos = display.selectionStart;
+            if (!display.value.slice(0, curPos).includes("\n")) {
+            setCaretToPos(display, 0)
+            display.focus()
+            } else {
+                let cache = display.value.slice(0, curPos).replace(/^.*\n/g, "").length;
+                let cache_2 = display.value.slice(curPos).indexOf("\n");
+                console.log(cache)
+                console.log(cache_2)
+                console.log(cache_2 + cache + display.value.slice(curPos).length)
+                setCaretToPos(display, display.value.slice(0, curPos).length + 1 - cache)
+              display.focus()
+            }
+        });
+          break;
+
+        case "down":
+          keyElement.innerHTML = "▼";
+          keyElement.addEventListener("click", () => {
+            curPos = display.selectionStart;
+            if (!display.value.slice(curPos).includes("\n")) {
+            setCaretToPos(display, display.value.length)
+            display.focus()
+            } else {
+                let cache = display.value.slice(0, curPos).replace(/^.*\n/g, "").length;
+                let cache_2 = display.value.slice(curPos).indexOf("\n");
+                console.log(cache)
+                console.log(cache_2)
+                console.log(cache_2 + cache + display.value.slice(curPos).length)
+                setCaretToPos(display, cache_2 + cache + display.value.slice(0, curPos).length + 1)
+              display.focus()
+            }
+        });
+          break;
+
         case "lang":
-          keyElement.classList.add("button", "button_lang");
-          keyElement.innerHTML = "lang";
+          keyElement.classList.add("button", "button_lang", "button_wide");
+          keyElement.innerHTML = "LANG";
           keyElement.addEventListener("click", () => {
               this.elements.btnWrapper.innerHTML = "";
               if (language === "eng") {
@@ -169,20 +292,20 @@ const VirtialKbd = {
                  this.elements.buttons = this.elements.btnWrapper.querySelectorAll(".button");
                 language = "eng";
               }
-              
+              buttons = Array.from(this.elements.buttons)
           });
 
           break;
 
         default:
-          keyElement.textContent = this.properties.capsLock ? key.toUpperCase() : key.toLowerCase();
+          keyElement.textContent = this.properties.capsLock || this.properties.shift ? key.toUpperCase() : key.toLowerCase();
           keyElement.addEventListener("click", () => {
           curPos = display.selectionStart;
           if (curPos === display.value.length) {
-              display.value += (this.properties.capsLock ? key.toUpperCase() : key.toLowerCase());}
+              display.value += (this.properties.capsLock || this.properties.shift ? key.toUpperCase() : key.toLowerCase());}
           else {
               let cache = display.value.slice(curPos)
-              display.value = display.value.slice(0, curPos) + (this.properties.capsLock ? key.toUpperCase() : key.toLowerCase()) + cache;
+              display.value = display.value.slice(0, curPos) + (this.properties.capsLock || this.properties.shift ? key.toUpperCase() : key.toLowerCase()) + cache;
           }
           setCaretToPos(display, curPos + 1)
           display.focus()
@@ -202,14 +325,14 @@ const VirtialKbd = {
 
   toggleCapsLock() {
     this.properties.capsLock = !this.properties.capsLock;
-
     for (const key of this.elements.buttons) {
-      // if (key.childElementCount === 0) {
-        key.textContent = this.properties.capsLock ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
-      // }
+        key.textContent = this.properties.capsLock || this.properties.shift ?
+        key.textContent.toUpperCase(): key.textContent.toLowerCase();
     }
   },
+
 };
+
 
 window.addEventListener("DOMContentLoaded", function () {
   VirtialKbd.init("eng");
@@ -237,7 +360,7 @@ function setCaretToPos (input, pos) {
 
 document.addEventListener('keydown', function(event) {
 
-console.log(event.code.slice(-1))
-buttons.find(el => el.textContent.toLowerCase() === event.code.slice(-1).toLowerCase()).style.color = "red"
+//console.log(event.keyCode)
+//buttons.find(el => el.textContent.toLowerCase() === event.code.slice(-1).toLowerCase()).style.color = "red"
 
 });

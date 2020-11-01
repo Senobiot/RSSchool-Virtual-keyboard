@@ -99,11 +99,12 @@ h1, h2, h3, h4, h5, h6 {
         -ms-transform: scaleY(0);
             transform: scaleY(0); }
   .keyboard .btnWrapper {
-    text-align: center; }
+    text-align: center;
+    max-width: 1400px;
+    margin: 0 auto; }
   .keyboard .button {
-    height: 45px;
-    width: 6%;
-    max-width: 90px;
+    height: 65px;
+    width: 70px;
     margin: 3px;
     border-radius: 4px;
     background: black;
@@ -126,15 +127,16 @@ h1, h2, h3, h4, h5, h6 {
     position: relative;
     -webkit-transition: 0.3s;
     -o-transition: 0.3s;
-    transition: 0.3s; }
+    transition: 0.3s;
+    font-family: Arial;
+    font-size: 18px; }
     .keyboard .button:active {
       background: #fff;
       color: #000; }
     .keyboard .button_wide {
-      width: 12%; }
+      width: 160px; }
     .keyboard .button_widest {
-      width: 36%;
-      max-width: 500px; }
+      width: 425px; }
     .keyboard .button_switch {
       background-color: blue; }
     .keyboard .button_active::after {

@@ -31,12 +31,14 @@
 	}
 	.btnWrapper {
 		text-align: center;
+		max-width: 1400px;
+		margin: 0 auto;
 	
 	}
 	.button {
-		height: 45px;
-		width: 6%;
-		max-width: 90px;
+		height: 65px;
+		width: 70px;
+		//max-width: 90px;
 		margin: 3px;
 		border-radius: 4px;
 		background: rgba(0, 0, 0, 1);
@@ -49,16 +51,17 @@
 		padding: 0;
 		position: relative;
 		transition: 0.3s;
+		font-family: Arial;
+		font-size: 18px;
 		&:active {
 			background: #fff;
 			color: #000;
 		}
 		&_wide {
-			 width: 12%;
+			 width: 160px;
 		}
 		&_widest {
-			width: 36%;
-			max-width: 500px;
+			width: 425px;
 		}
 		&_switch {
 			background-color: blue;
