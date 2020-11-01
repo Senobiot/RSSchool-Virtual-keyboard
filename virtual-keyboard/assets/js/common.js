@@ -4,7 +4,10 @@ let display = document.querySelector('.display'),
     language = "eng",
     langKeys,
     casheLayout = [],
-    casheLang;
+    casheLang,
+    keycodes = [192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8, 9, 81, 87, 69,
+    82, 84, 89, 85, 73, 79, 80, 219, 221, 20, 65, 83, 68, 70, 71, 72, 74, 75, 76, 186, 222,
+    220, 13, 16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 38, 555, 777, 32, 999, 37, 40, 39]
 
 display.addEventListener('click', function(){
   document.querySelector('.keyboard').classList.remove("inactive")
@@ -359,8 +362,9 @@ function setCaretToPos (input, pos) {
 
 
 document.addEventListener('keydown', function(event) {
+  console.log(event.keyCode)
+VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.color = "red"
 
-//console.log(event.keyCode)
-//buttons.find(el => el.textContent.toLowerCase() === event.code.slice(-1).toLowerCase()).style.color = "red"
+
 
 });
