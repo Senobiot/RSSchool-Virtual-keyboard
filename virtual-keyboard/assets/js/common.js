@@ -18,6 +18,7 @@ let display = document.querySelector('.display'),
       myAudio6 = new Audio;
       myAudio7 = new Audio;
       myAudio8 = new Audio;
+      myAudio9 = new Audio;
       myAudio1.src = "assets/media/1.mp3";
       myAudio2.src = "assets/media/2.mp3";
       myAudio3.src = "assets/media/3.mp3";
@@ -26,6 +27,7 @@ let display = document.querySelector('.display'),
       myAudio6.src = "assets/media/6.mp3";
       myAudio7.src = "assets/media/7.mp3";
       myAudio8.src = "assets/media/8.mp3";
+      myAudio9.src = "assets/media/9.mp3";
 
       //myAudio.play()
 
@@ -134,8 +136,8 @@ const VirtialKbd = {
           keyElement.innerHTML = "Caps Lock";
           keyElement.addEventListener("click", () => {
              if (sound) {
-              myAudio6.currentTime = 0;
-              myAudio6.play()
+              myAudio9.currentTime = 0;
+              myAudio9.play()
             }
             this.toggleCapsLock()
             keyElement.classList.toggle("button_switch", this.properties.capsLock);
@@ -262,6 +264,7 @@ const VirtialKbd = {
           keyElement.addEventListener("click", () => {
               keyElement.classList.toggle("active")
               sound = !sound
+              display.focus()
           });
 
           break;
@@ -475,9 +478,11 @@ function setCaretToPos (input, pos) {
    setSelectionRange(input, pos, pos);
 }
 
-
+let ctr = false;
 document.addEventListener('keydown', function(event) {
-  if (VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)]){
+  if (event.keyCode == 17) ctr = true;
+
+  if (VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)] && !ctr){
     event.preventDefault()
     VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.cssText = "transform: translate(2px, 2px); background-color: #5183B2;"
    VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].click()
@@ -486,6 +491,7 @@ document.addEventListener('keydown', function(event) {
 });
 
 document.addEventListener('keyup', function(event) {
+  if (event.keyCode == 17) ctr = false;
   if (VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)]){
   VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.cssText = "transform: translate(0px, 0px);"}
 });

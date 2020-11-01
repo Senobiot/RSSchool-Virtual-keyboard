@@ -2,24 +2,23 @@
 @import "../css/reset";
 .main-page {
 	  background: url('assets/images/bg1.png') no-repeat 50% 0%/contain;
-	  background-size: 60%;
+	  background-size: 60vmax;
 	  height: 100vh;
 	  padding-top: 55px;
 }
 .display {
 	resize: none;
-	// border: 1px solid #000;
-  display: flex;
-  width: 46%;
-  margin: 0 auto;
-  line-height: 1;
-  font-family: Arial, sans-serif;
+	display: flex;
+	width: 46%;
+	margin: 0 auto;
+	line-height: 1.2;
+	font-family: Arial, sans-serif;
 	font-size: 36px;
 	font-weight: 500;
-  height: 42%;
-  min-height: 300px;
-  font-size: 24px;
-  background-color: transparent;
+	height: 42%;
+	min-height: 300px;
+	font-size: 24px;
+	background-color: transparent;
 }
 
 
@@ -119,7 +118,7 @@
 			background: #C1E3FB url("assets/images/space.png") no-repeat 50%/contain;
 		}
 		&_switch {
-			width: 150px;
+			width: 140px;
 			transition: all 0.3s;
 			background-color: #A0F9B1;
 		}
@@ -138,6 +137,12 @@
 }
 
 @media (max-width: 1401px) {
+	.main-page {
+	 padding-top: 40px;
+	}
+	.display {
+		height: 30%;
+	}
 	.keyboard {
 		.btnWrapper {
 			max-width: 95%;
@@ -155,4 +160,105 @@
 		}
 	}
 }
+@media (max-width: 1150px) {
+	.main-page {
+		padding-top: 25px;
+	}
+	.display {
+		height: 20%;
+	}
+	.keyboard {
+		.button {
+			width: 5%;
+			height: 45px;
+			font-size: 18px;
+			&_wide {
+				width: 10%;
+			}
+		}
+	}
+}
 
+@media (max-width: 950px) {
+	.main-page {
+		padding-top: 25px;
+		background-size: 100%;
+	}
+	.display {
+		height: 250px;
+		width: 100%;
+		line-height: 1.2;
+		padding: 0 11%;
+	}
+	.keyboard {
+		.button {
+			width: 5%;
+			height: 40px;
+			font-size: 18px;
+			&_wide {
+				width: 10%;
+			}
+			&.tab {
+				width: 80px;
+			}
+			&_widest {
+				width: 35%;
+			}
+		}
+	}
+}
+@media (max-width: 768px) {
+	.main-page {
+		background: none;
+	}
+	.display {
+		width: 90%;
+		border: 5px solid #214b5c;
+		background-color: rgba(33,75,92, 0.2);
+		padding: 15px; 
+		border-radius: 15px;
+	}
+	.keyboard {
+		.button {
+			width: 5%;
+			height: 30px;
+			font-size: 16px;
+			&_wide {
+				width: 12%;
+				font-size: 12px;
+			}
+			&_widest {
+				width: 30%;
+			}
+			&.tab {
+				width: 60px;
+			}
+		}
+	}
+}
+
+@media (max-width: 576px) {
+	.keyboard .button {
+		width: 4.5%;
+		height: 20px;
+		&_wide {
+			width: 10%;
+			font-size: 10px;
+		}
+		&_widest {
+			width: 30%;
+		}
+		&.tab {
+			width: 50px;
+		}
+	}
+}
+@media (max-width: 350px) {
+	.keyboard .button {
+		font-size: 12px;
+		&_wide {
+			width: 8%;
+			font-size: 6px;
+		}
+	}
+}

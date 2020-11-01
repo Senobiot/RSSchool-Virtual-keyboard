@@ -60,7 +60,7 @@ h1, h2, h3, h4, h5, h6 {
 /*--------------------*/
 .main-page {
   background: url("assets/images/bg1.png") no-repeat 50% 0%/contain;
-  background-size: 60%;
+  background-size: 60vmax;
   height: 100vh;
   padding-top: 55px; }
 
@@ -72,7 +72,7 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   width: 46%;
   margin: 0 auto;
-  line-height: 1;
+  line-height: 1.2;
   font-family: Arial, sans-serif;
   font-size: 36px;
   font-weight: 500;
@@ -197,7 +197,7 @@ h1, h2, h3, h4, h5, h6 {
       width: 425px;
       background: #C1E3FB url("assets/images/space.png") no-repeat 50%/contain; }
     .keyboard .button_switch {
-      width: 150px;
+      width: 140px;
       -webkit-transition: all 0.3s;
       -o-transition: all 0.3s;
       transition: all 0.3s;
@@ -214,6 +214,10 @@ h1, h2, h3, h4, h5, h6 {
       background-color: #5183B2; }
 
 @media (max-width: 1401px) {
+  .main-page {
+    padding-top: 40px; }
+  .display {
+    height: 30%; }
   .keyboard .btnWrapper {
     max-width: 95%;
     padding: 20px 5px; }
@@ -224,3 +228,75 @@ h1, h2, h3, h4, h5, h6 {
       width: 10%; }
     .keyboard .button_widest {
       width: 45%; } }
+
+@media (max-width: 1150px) {
+  .main-page {
+    padding-top: 25px; }
+  .display {
+    height: 20%; }
+  .keyboard .button {
+    width: 5%;
+    height: 45px;
+    font-size: 18px; }
+    .keyboard .button_wide {
+      width: 10%; } }
+
+@media (max-width: 950px) {
+  .main-page {
+    padding-top: 25px;
+    background-size: 100%; }
+  .display {
+    height: 250px;
+    width: 100%;
+    line-height: 1.2;
+    padding: 0 11%; }
+  .keyboard .button {
+    width: 5%;
+    height: 40px;
+    font-size: 18px; }
+    .keyboard .button_wide {
+      width: 10%; }
+    .keyboard .button.tab {
+      width: 80px; }
+    .keyboard .button_widest {
+      width: 35%; } }
+
+@media (max-width: 768px) {
+  .main-page {
+    background: none; }
+  .display {
+    width: 90%;
+    border: 5px solid #214b5c;
+    background-color: rgba(33, 75, 92, 0.2);
+    padding: 15px;
+    border-radius: 15px; }
+  .keyboard .button {
+    width: 5%;
+    height: 30px;
+    font-size: 16px; }
+    .keyboard .button_wide {
+      width: 12%;
+      font-size: 12px; }
+    .keyboard .button_widest {
+      width: 30%; }
+    .keyboard .button.tab {
+      width: 60px; } }
+
+@media (max-width: 576px) {
+  .keyboard .button {
+    width: 4.5%;
+    height: 20px; }
+    .keyboard .button_wide {
+      width: 10%;
+      font-size: 10px; }
+    .keyboard .button_widest {
+      width: 30%; }
+    .keyboard .button.tab {
+      width: 50px; } }
+
+@media (max-width: 350px) {
+  .keyboard .button {
+    font-size: 12px; }
+    .keyboard .button_wide {
+      width: 8%;
+      font-size: 6px; } }
