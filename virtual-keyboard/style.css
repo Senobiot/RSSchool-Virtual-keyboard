@@ -132,19 +132,15 @@ h1, h2, h3, h4, h5, h6 {
     -o-transition: 0.3s;
     transition: 0.3s;
     font-family: Arial, sans-serif;
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
     -webkit-transition: all 0.3s;
     -o-transition: all 0.3s;
     transition: all 0.3s; }
-    .keyboard .button:active {
-      -webkit-transform: translate(2px, 2px);
-          -ms-transform: translate(2px, 2px);
-              transform: translate(2px, 2px);
-      background: #fff;
-      color: #000; }
     .keyboard .button.enter {
       background: dimgray url("assets/images/enter.png") no-repeat 50%/contain; }
+    .keyboard .button.backspace {
+      background: dimgray url("assets/images/backspace.png") no-repeat 50%/contain; }
     .keyboard .button.tab {
       width: 120px;
       background: dimgray url("assets/images/tab.png") no-repeat 50%/contain; }
@@ -160,11 +156,35 @@ h1, h2, h3, h4, h5, h6 {
         background-color: #fff; }
     .keyboard .button_lang {
       background: dimgray url("assets/images/en.png") no-repeat 50%/contain; }
+    .keyboard .button_speech {
+      background: dimgray url("assets/images/mic.png") no-repeat 50%/contain; }
+      .keyboard .button_speech.active {
+        -webkit-animation: mic 1.5s linear infinite alternate;
+                animation: mic 1.5s linear infinite alternate; }
+
+@-webkit-keyframes mic {
+  50% {
+    background-color: #DE5656; } }
+
+@keyframes mic {
+  50% {
+    background-color: #DE5656; } }
     .keyboard .button_wide {
       width: 160px; }
     .keyboard .button_widest {
-      width: 425px; }
+      width: 425px;
+      background: dimgray url("assets/images/space.png") no-repeat 50%/contain; }
+    .keyboard .button_switch {
+      -webkit-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      background-color: #fff; }
     .keyboard .button_active::after {
       background: #08ff00; }
     .keyboard .button_accept {
       background: green; }
+    .keyboard .button:active {
+      -webkit-transform: translate(2px, 2px);
+          -ms-transform: translate(2px, 2px);
+              transform: translate(2px, 2px);
+      background-color: #fff; }

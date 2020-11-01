@@ -87,9 +87,7 @@ const VirtialKbd = {
 
       switch (key) {
         case "backspace":
-          keyElement.classList.add("button_wide");
-          keyElement.innerHTML = "backspace";
-
+          keyElement.classList.add("button_wide", "backspace");
           keyElement.addEventListener("click", () => {
             curPos = display.selectionStart;
             if (curPos === 0) {}
@@ -152,7 +150,6 @@ const VirtialKbd = {
 
         case "space":
           keyElement.classList.add("button_widest");
-          keyElement.innerHTML = "SPACEBAR";
           keyElement.addEventListener("click", () => {
             curPos = display.selectionStart;
             if (curPos === display.value.length) {
@@ -211,9 +208,9 @@ const VirtialKbd = {
           break;
 
         case "speech":
-          keyElement.innerHTML = "SPEECH";
           keyElement.classList.add("button_wide", "button_speech");
                 keyElement.addEventListener('click', () => {
+                  keyElement.classList.toggle("active")
                   if (!speech) {
                     speech = !speech
                     recognition.interimResults = true;
@@ -232,6 +229,7 @@ const VirtialKbd = {
                   } else {
                     stopVoice()
                   }
+                  display.focus()
                 })
           break;
 
@@ -303,7 +301,6 @@ const VirtialKbd = {
               if (language === "eng") {
                 this.elements.btnWrapper.appendChild(this.createKeys("ru"));
                 this.elements.buttons = this.elements.btnWrapper.querySelectorAll(".button");
-
                 language = "ru";
                 document.querySelector(".button_lang").style.background = "rgba(105,105,105, 1) url('assets/images/ru2.png') no-repeat 50%/contain"
               } else {
@@ -313,6 +310,7 @@ const VirtialKbd = {
                 document.querySelector(".button_lang").style.background = "rgba(105,105,105, 1) url('assets/images/en.png') no-repeat 50%/contain"
               }
               buttons = Array.from(this.elements.buttons)
+              display.focus()
           });
 
           break;
@@ -382,11 +380,15 @@ function setCaretToPos (input, pos) {
 
 
 document.addEventListener('keydown', function(event) {
-  VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.cssText = "transform: translate(2px, 2px); background-color: white;"
+  if (VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)]){
+    VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.cssText = "transform: translate(2px, 2px); background-color: white;"
+  }
+  
 });
 
 document.addEventListener('keyup', function(event) {
-  VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.cssText = "transform: translate(0px, 0px);"
+  if (VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)]){
+  VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.cssText = "transform: translate(0px, 0px);"}
 });
 
 
@@ -399,7 +401,6 @@ document.addEventListener('keyup', function(event) {
   const stopVoice = () => {
     speech = !speech;
     setCaretToPos(display, curPos + 1)
-    // display.focus()
     recognition.abort()
     recognition.removeEventListener('end', recognition.start)
     recognition.removeEventListener('result', tryRec)
@@ -407,17 +408,21 @@ document.addEventListener('keyup', function(event) {
 
   const tryRec = (e) => {
     let transcript
-    console.log("transcript")
     transcript = Array.from(e.results)
       .map(result => result[0])
       .map(result => result.transcript)
       .join('');
     if (e.results[0].isFinal) {
-      display.value += ' ' + transcript + ' '
-      if (curPos === 0) {
-        setCaretToPos(display, 0)
-      }
-      setCaretToPos(display, 0)
+      curPos = display.selectionStart;
+      if (curPos === display.value.length) {
+              display.value += ` ${transcript} `;
+              setCaretToPos(display, display.value.length)
+            }
+          else {
+              let cache = display.value.slice(curPos)
+              display.value = display.value.slice(0, curPos) + " " + transcript + " " + cache;
+              setCaretToPos(display, display.value.length - cache.length)
+          }
     }
   }
 
