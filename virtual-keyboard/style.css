@@ -154,6 +154,13 @@ h1, h2, h3, h4, h5, h6 {
         -o-transition: all 0.3s;
         transition: all 0.3s;
         background-color: #fff; }
+    .keyboard .button.sound {
+      -webkit-transition: all 0.3s;
+      -o-transition: all 0.3s;
+      transition: all 0.3s;
+      background: #A0F9B1 url("assets/images/sound.png") no-repeat 50%/contain; }
+      .keyboard .button.sound.active {
+        background: #FD9D9D url("assets/images/nosound.png") no-repeat 50%/contain; }
     .keyboard .button_lang {
       background: dimgray url("assets/images/en.png") no-repeat 50%/contain; }
     .keyboard .button_speech {

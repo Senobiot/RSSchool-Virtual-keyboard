@@ -75,6 +75,13 @@
 				background-color: #fff
 			}
 		}
+		&.sound {
+			transition: all 0.3s;
+			background: #A0F9B1 url("assets/images/sound.png") no-repeat 50%/contain;
+			&.active {
+				background: #FD9D9D url("assets/images/nosound.png") no-repeat 50%/contain;
+			}
+		}
 		&_lang {
 			background: rgba(105,105,105, 1) url("assets/images/en.png") no-repeat 50%/contain;
 			}
