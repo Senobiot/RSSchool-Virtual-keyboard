@@ -58,23 +58,28 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400; }
 
 /*--------------------*/
+.main-page {
+  background: url("assets/images/bg1.png") no-repeat 50% 0%/contain;
+  background-size: 60%;
+  height: 100vh;
+  padding-top: 55px; }
+
 .display {
+  resize: none;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  border: 1px solid #000;
-  width: 90%;
-  margin: 30px auto;
-  padding: 10px;
+  width: 46%;
+  margin: 0 auto;
   line-height: 1;
   font-family: Arial, sans-serif;
   font-size: 36px;
   font-weight: 500;
-  height: -webkit-calc(100vh - 380px);
-  height: calc(100vh - 380px);
+  height: 42%;
   min-height: 300px;
-  font-size: 24px; }
+  font-size: 24px;
+  background-color: transparent; }
 
 .keyboard {
   position: fixed;
@@ -82,7 +87,7 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0;
   width: 100%;
   padding: 5px 0;
-  background: #cacaca;
+  background: transparent;
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -102,15 +107,21 @@ h1, h2, h3, h4, h5, h6 {
         -ms-transform: scaleY(0);
             transform: scaleY(0); }
   .keyboard .btnWrapper {
-    text-align: center;
+    text-align: left;
     max-width: 1400px;
-    margin: 0 auto; }
+    margin: 0 auto;
+    background-color: #214b5c;
+    border-radius: 20px;
+    text-align: center;
+    padding: 20px 60px; }
   .keyboard .button {
     height: 65px;
-    width: 70px;
+    width: 75px;
     margin: 3px;
     border-radius: 4px;
-    background-color: dimgray;
+    background-color: #C1E3FB;
+    -webkit-box-shadow: 0 0 0 60px rgba(0, 0, 0, 0) inset, 0.1em 0.1em 0.2em #4E7FBB;
+            box-shadow: 0 0 0 60px rgba(0, 0, 0, 0) inset, 0.1em 0.1em 0.2em #4E7FBB;
     color: #000;
     cursor: pointer;
     display: -webkit-inline-box;
@@ -134,37 +145,39 @@ h1, h2, h3, h4, h5, h6 {
     font-family: Arial, sans-serif;
     font-size: 26px;
     font-weight: 700;
-    -webkit-transition: all 0.3s;
-    -o-transition: all 0.3s;
-    transition: all 0.3s; }
+    -webkit-transition: all 0.1s;
+    -o-transition: all 0.1s;
+    transition: all 0.1s; }
     .keyboard .button.enter {
-      background: dimgray url("assets/images/enter.png") no-repeat 50%/contain; }
+      background: #C1E3FB url("assets/images/enter.png") no-repeat 50%/contain; }
     .keyboard .button.backspace {
-      background: dimgray url("assets/images/backspace.png") no-repeat 50%/contain; }
+      background: #C1E3FB url("assets/images/backspace.png") no-repeat 50%/contain; }
     .keyboard .button.tab {
       width: 120px;
-      background: dimgray url("assets/images/tab.png") no-repeat 50%/contain; }
+      background: #C1E3FB url("assets/images/tab.png") no-repeat 50%/contain; }
     .keyboard .button.shift {
       -webkit-transition: all 0.3s;
       -o-transition: all 0.3s;
       transition: all 0.3s;
-      background: dimgray url("assets/images/shift.png") no-repeat 50%/contain; }
+      background: #C1E3FB url("assets/images/shift.png") no-repeat 50%/contain; }
       .keyboard .button.shift.button_switch {
         -webkit-transition: all 0.3s;
         -o-transition: all 0.3s;
         transition: all 0.3s;
-        background-color: #fff; }
+        background-color: #A0F9B1; }
     .keyboard .button.sound {
       -webkit-transition: all 0.3s;
       -o-transition: all 0.3s;
       transition: all 0.3s;
-      background: #A0F9B1 url("assets/images/sound.png") no-repeat 50%/contain; }
+      background: #A0F9B1 url("assets/images/sound.png") no-repeat 50%/contain;
+      background-size: 60%; }
       .keyboard .button.sound.active {
-        background: #FD9D9D url("assets/images/nosound.png") no-repeat 50%/contain; }
+        background: #FD9D9D url("assets/images/nosound.png") no-repeat 50%/contain;
+        background-size: 60%; }
     .keyboard .button_lang {
-      background: dimgray url("assets/images/en.png") no-repeat 50%/contain; }
+      background: #C1E3FB url("assets/images/en.png") no-repeat 50%/contain; }
     .keyboard .button_speech {
-      background: dimgray url("assets/images/mic.png") no-repeat 50%/contain; }
+      background: #EAFBFD url("assets/images/mic.png") no-repeat 50%/contain; }
       .keyboard .button_speech.active {
         -webkit-animation: mic 1.5s linear infinite alternate;
                 animation: mic 1.5s linear infinite alternate; }
@@ -177,21 +190,37 @@ h1, h2, h3, h4, h5, h6 {
   50% {
     background-color: #DE5656; } }
     .keyboard .button_wide {
-      width: 160px; }
+      width: 140px;
+      text-transform: uppercase;
+      font-size: 22px; }
     .keyboard .button_widest {
       width: 425px;
-      background: dimgray url("assets/images/space.png") no-repeat 50%/contain; }
+      background: #C1E3FB url("assets/images/space.png") no-repeat 50%/contain; }
     .keyboard .button_switch {
+      width: 150px;
       -webkit-transition: all 0.3s;
       -o-transition: all 0.3s;
       transition: all 0.3s;
-      background-color: #fff; }
+      background-color: #A0F9B1; }
     .keyboard .button_active::after {
       background: #08ff00; }
     .keyboard .button_accept {
-      background: green; }
+      background: #EAFBFD url("assets/images/done.png") no-repeat 50%/contain;
+      background-size: 30%; }
     .keyboard .button:active {
       -webkit-transform: translate(2px, 2px);
           -ms-transform: translate(2px, 2px);
               transform: translate(2px, 2px);
-      background-color: #fff; }
+      background-color: #5183B2; }
+
+@media (max-width: 1401px) {
+  .keyboard .btnWrapper {
+    max-width: 95%;
+    padding: 20px 5px; }
+  .keyboard .button {
+    width: 6%;
+    height: 60px; }
+    .keyboard .button_wide {
+      width: 10%; }
+    .keyboard .button_widest {
+      width: 45%; } }

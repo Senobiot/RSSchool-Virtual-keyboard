@@ -7,7 +7,7 @@ let display = document.querySelector('.display'),
     casheLang,
     keycodes = [192, 49, 50, 51, 52, 53, 54, 55, 56, 57, 48, 189, 187, 8, 9, 81, 87, 69,
     82, 84, 89, 85, 73, 79, 80, 219, 221, 20, 65, 83, 68, 70, 71, 72, 74, 75, 76, 186, 222,
-    220, 13, 16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 38, 555, 777, 32, 999, 998, 37, 40, 39],
+    220, 13, 16, 90, 88, 67, 86, 66, 78, 77, 188, 190, 191, 37, 39, 555, 777, 32, 999, 998],
     speech = false,
     sound = true,
       myAudio1 = new Audio;
@@ -64,31 +64,31 @@ const VirtialKbd = {
       "`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
       "tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]",
       "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "\\", "enter",
-      "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "up",
-      "speech", "lang", "space", "done", "sound", "left", "down", "right",
+      "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "left", "right",
+      "speech", "lang", "space", "done", "sound",
     ];
 
     const buttonsRu = [
       "ё", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "backspace",
       "tab", "й", "ц", "у", "к", "е", "н", "г", "ш", "щ", "з", "х", "ъ",
       "caps", "ф", "ы", "в", "а", "п", "р", "о", "л", "д", "ж", "э", "\\", "enter",
-      "shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".", "up", 
-      "speech", "lang", "space", "done", "sound", "left", "down", "right", 
+      "shift", "я", "ч", "с", "м", "и", "т", "ь", "б", "ю", ".", "left", "right",
+      "speech", "lang", "space", "done", "sound", 
     ];
 
       const shiftEng = [
       "~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "backspace",
       "tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "{", "}",
       "caps", "A", "S", "D", "F", "G", "H", "J", "K", "L", ":", "\"", "|", "enter",
-      "shift", "Z", "X", "C", "V", "B", "N", "M", "<", ">", "?", "up", 
-      "speech", "lang", "space", "done", "sound", "left", "down", "right", 
+      "shift", "Z", "X", "C", "V", "B", "N", "M", "<", ">", "?", "left", "right",
+      "speech", "lang", "space", "done", "sound",
     ];
       const shiftRu = [
       "Ё", "!", "\"", "№", ";", "%", ":", "?", "*", "(", ")", "_", "+", "backspace",
       "tab", "Й", "Ц", "У", "К", "Е", "Н", "Г", "Ш", "Щ", "З", "Х", "Ъ",
       "caps", "Ф", "Ы", "В", "Ф", "П", "Р", "О", "Л", "Д", "Ж", "Э", "/", "enter",
-      "shift", "Я", "Ч", "С", "М", "И", "Т", "Ь", "Б", "Ю", ",", "up",  
-      "speech", "lang", "space", "done", "sound", "left", "down", "right", 
+      "shift", "Я", "Ч", "С", "М", "И", "Т", "Ь", "Б", "Ю", ",", "left", "right", 
+      "speech", "lang", "space", "done", "sound",
     ];
 
     if (lang === "eng") {layouts = buttonsEng}
@@ -98,7 +98,7 @@ const VirtialKbd = {
 
     layouts.forEach(key => {
       const keyElement = document.createElement("button");
-      const insertLineBreak = ["backspace", "]", "enter", "ъ", "up", "Ъ", "}"].indexOf(key) !== -1;
+      const insertLineBreak = ["backspace", "]", "enter", "ъ", "up", "Ъ", "}", "right"].indexOf(key) !== -1;
 
       keyElement.setAttribute("type", "button");
       keyElement.classList.add("button");
@@ -139,6 +139,7 @@ const VirtialKbd = {
             }
             this.toggleCapsLock()
             keyElement.classList.toggle("button_switch", this.properties.capsLock);
+            // keyElement.textContent.toUpperCase();
             display.focus()
           });
 
@@ -245,7 +246,6 @@ const VirtialKbd = {
 
         case "done":
           keyElement.classList.add("button_wide", "button_accept");
-          keyElement.innerHTML = "DONE";
           keyElement.addEventListener("click", () => {
                        if (sound) {
               myAudio7.currentTime = 0;
@@ -327,51 +327,51 @@ const VirtialKbd = {
         });
           break;
 
-        case "up":
-          keyElement.innerHTML = "▲";
-          keyElement.addEventListener("click", () => {
-                       if (sound) {
-              myAudio7.currentTime = 0;
-              myAudio7.play()
-            }
-            curPos = display.selectionStart;
-            if (!display.value.slice(0, curPos).includes("\n")) {
-            setCaretToPos(display, 0)
-            display.focus()
-            } else {
-                let cache = display.value.slice(0, curPos).replace(/^.*\n/g, "").length;
-                let cache_2 = display.value.slice(curPos).indexOf("\n");
-                console.log(cache)
-                console.log(cache_2)
-                console.log(cache_2 + cache + display.value.slice(curPos).length)
-                setCaretToPos(display, display.value.slice(0, curPos).length + 1 - cache)
-              display.focus()
-            }
-        });
-          break;
+        // case "up":
+        //   keyElement.innerHTML = "▲";
+        //   keyElement.addEventListener("click", () => {
+        //                if (sound) {
+        //       myAudio7.currentTime = 0;
+        //       myAudio7.play()
+        //     }
+        //     curPos = display.selectionStart;
+        //     if (!display.value.slice(0, curPos).includes("\n")) {
+        //     setCaretToPos(display, 0)
+        //     display.focus()
+        //     } else {
+        //         let cache = display.value.slice(0, curPos).replace(/^.*\n/g, "").length;
+        //         let cache_2 = display.value.slice(curPos).indexOf("\n");
+        //         console.log(cache)
+        //         console.log(cache_2)
+        //         console.log(cache_2 + cache + display.value.slice(curPos).length)
+        //         setCaretToPos(display, display.value.slice(0, curPos).length + 1 - cache)
+        //       display.focus()
+        //     }
+        // });
+        //   break;
 
-        case "down":
-          keyElement.innerHTML = "▼";
-          keyElement.addEventListener("click", () => {
-                       if (sound) {
-              myAudio7.currentTime = 0;
-              myAudio7.play()
-            }
-            curPos = display.selectionStart;
-            if (!display.value.slice(curPos).includes("\n")) {
-            setCaretToPos(display, display.value.length)
-            display.focus()
-            } else {
-                let cache = display.value.slice(0, curPos).replace(/^.*\n/g, "").length;
-                let cache_2 = display.value.slice(curPos).indexOf("\n");
-                console.log(cache)
-                console.log(cache_2)
-                console.log(cache_2 + cache + display.value.slice(curPos).length)
-                setCaretToPos(display, cache_2 + cache + display.value.slice(0, curPos).length + 1)
-              display.focus()
-            }
-        });
-          break;
+        // case "down":
+        //   keyElement.innerHTML = "▼";
+        //   keyElement.addEventListener("click", () => {
+        //                if (sound) {
+        //       myAudio7.currentTime = 0;
+        //       myAudio7.play()
+        //     }
+        //     curPos = display.selectionStart;
+        //     if (!display.value.slice(curPos).includes("\n")) {
+        //     setCaretToPos(display, display.value.length)
+        //     display.focus()
+        //     } else {
+        //         let cache = display.value.slice(0, curPos).replace(/^.*\n/g, "").length;
+        //         let cache_2 = display.value.slice(curPos).indexOf("\n");
+        //         console.log(cache)
+        //         console.log(cache_2)
+        //         console.log(cache_2 + cache + display.value.slice(curPos).length)
+        //         setCaretToPos(display, cache_2 + cache + display.value.slice(0, curPos).length + 1)
+        //       display.focus()
+        //     }
+        // });
+        //   break;
 
         case "lang":
           keyElement.classList.add("button", "button_lang", "button_wide");
@@ -385,14 +385,14 @@ const VirtialKbd = {
                 this.elements.btnWrapper.appendChild(this.createKeys("ru"));
                 this.elements.buttons = this.elements.btnWrapper.querySelectorAll(".button");
                 language = "ru";
-                document.querySelector(".button_lang").style.background = "rgba(105,105,105, 1) url('assets/images/ru2.png') no-repeat 50%/contain"
+                document.querySelector(".button_lang").style.background = "#C1E3FB url('assets/images/ru2.png') no-repeat 50%/contain"
                 if (sound) {document.querySelector(".sound").classList.remove("active")}
                 else {document.querySelector(".sound").classList.add("active")}             
               } else {
                 this.elements.btnWrapper.appendChild(this.createKeys("eng"));
                  this.elements.buttons = this.elements.btnWrapper.querySelectorAll(".button");
                 language = "eng";
-                document.querySelector(".button_lang").style.background = "rgba(105,105,105, 1) url('assets/images/en.png') no-repeat 50%/contain"
+                document.querySelector(".button_lang").style.background = "#C1E3FB url('assets/images/en.png') no-repeat 50%/contain"
                 if (sound) {document.querySelector(".sound").classList.remove("active")}
                 else {document.querySelector(".sound").classList.add("active")} 
               }
@@ -409,8 +409,8 @@ const VirtialKbd = {
           keyElement.addEventListener("click", () => {
             if (sound) {
               if (language === "eng") {
-            myAudio5.currentTime = 0;
-            myAudio5.play()
+            myAudio2.currentTime = 0;
+            myAudio2.play()
           } else {
             myAudio6.currentTime = 0;
             myAudio6.play()}}
@@ -478,8 +478,9 @@ function setCaretToPos (input, pos) {
 
 document.addEventListener('keydown', function(event) {
   if (VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)]){
-    VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.cssText = "transform: translate(2px, 2px); background-color: white;"
-    VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].click()
+    event.preventDefault()
+    VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].style.cssText = "transform: translate(2px, 2px); background-color: #5183B2;"
+   VirtialKbd.elements.buttons[keycodes.indexOf(event.keyCode)].click()
   }
   
 });
