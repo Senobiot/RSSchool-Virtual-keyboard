@@ -58,5 +58,86 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 400; }
 
 /*--------------------*/
-.main-page {
-  color: red; }
+.display {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  border: 1px solid #000;
+  width: 90%;
+  margin: 30px auto;
+  padding: 10px;
+  line-height: 1;
+  font-size: 20px;
+  height: -webkit-calc(100vh - 380px);
+  height: calc(100vh - 380px);
+  min-height: 300px; }
+
+.keyboard {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 5px 0;
+  background: #cacaca;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-transform-origin: bottom;
+      -ms-transform-origin: bottom;
+          transform-origin: bottom;
+  -webkit-transform: scaleY(1);
+      -ms-transform: scaleY(1);
+          transform: scaleY(1);
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s; }
+  .keyboard.inactive {
+    -webkit-transform: scaleY(0);
+        -ms-transform: scaleY(0);
+            transform: scaleY(0); }
+  .keyboard .btnWrapper {
+    text-align: center; }
+  .keyboard .button {
+    height: 45px;
+    width: 6%;
+    max-width: 90px;
+    margin: 3px;
+    border-radius: 4px;
+    background: black;
+    color: #ffffff;
+    cursor: pointer;
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    vertical-align: top;
+    padding: 0;
+    position: relative;
+    -webkit-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s; }
+    .keyboard .button:active {
+      background: #fff;
+      color: #000; }
+    .keyboard .button_wide {
+      width: 12%; }
+    .keyboard .button_widest {
+      width: 36%;
+      max-width: 500px; }
+    .keyboard .button_switch {
+      background-color: blue; }
+    .keyboard .button_active::after {
+      background: #08ff00; }
+    .keyboard .button_accept {
+      background: green; }
